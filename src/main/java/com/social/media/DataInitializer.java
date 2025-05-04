@@ -11,7 +11,7 @@ import com.social.media.models.SocialUser;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+//this class means when project will run all things will done while running
 @Configuration
 public class DataInitializer {
 
@@ -29,7 +29,7 @@ public class DataInitializer {
         this.profileRepository = profileRepository;
         this.postRepository = postRepository;
     }
-
+//when application will start
     @Bean
     public CommandLineRunner initializeData() {
         return args -> {

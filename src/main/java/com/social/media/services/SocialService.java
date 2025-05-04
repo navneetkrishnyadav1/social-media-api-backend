@@ -13,11 +13,20 @@ public class SocialService {
     @Autowired
     SocialUserRepository socialUserRepository;
 
+
     public List<SocialUser> getAllUsers() {
         return socialUserRepository.findAll();
     }
 
     public SocialUser saveUser(SocialUser socialUser) {
+
         return socialUserRepository.save(socialUser);
+    }
+
+    public SocialUser deleteUser(Long id) {
+        SocialUser socialUser = socialUserRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not Found"));
+        socialUserRepository.delete(socialUser);
+        return socialUser;
     }
 }

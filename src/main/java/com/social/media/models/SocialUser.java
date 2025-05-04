@@ -15,15 +15,19 @@ import java.util.*;
 public class SocialUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "social_profile_id")
     private SocialProfile socialProfile;
 
     //here List because user will have many post or list of post that user posted; and this should have onetomany
     @OneToMany (mappedBy = "socialUser")
     private List<Post> posts = new ArrayList<>();
+    @ManyToMany
+    //@JoinColumn(name = "group_Id")
+    private Set<SocialGroup> groups = new HashSet<>();
 
 
     @ManyToMany
@@ -32,10 +36,14 @@ public class SocialUser {
             joinColumns = @JoinColumn (name = "user_Id"),
             inverseJoinColumns = @JoinColumn (name = "group_Id")
     )
-    private Set<SocialGroup> groups = new HashSet<>();
 
     @Override
     public int hashCode(){
         return Objects.hash(id);
+    }
+    //custom setter to set bidirectional relationship in a mannual way
+    public void setSocialProfile(SocialProfile socialProfile){
+        socialProfile.setUser(this);
+        this.socialProfile = socialProfile;
     }
 }
