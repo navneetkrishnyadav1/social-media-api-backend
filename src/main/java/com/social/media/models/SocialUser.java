@@ -18,12 +18,12 @@ public class SocialUser {
 
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "social_profile_id")
     private SocialProfile socialProfile;
 
     //here List because user will have many post or list of post that user posted; and this should have onetomany
-    @OneToMany (mappedBy = "socialUser")
+    @OneToMany (mappedBy = "socialUser", cascade = {CascadeType.PERSIST, CascadeType.MERGE })
     private List<Post> posts = new ArrayList<>();
     @ManyToMany
     //@JoinColumn(name = "group_Id")
